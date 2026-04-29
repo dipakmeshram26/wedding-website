@@ -949,8 +949,13 @@
                             introScreen.style.display = 'none';
                         }
                     })
-                        // Show main content
-                        .set(mainContent, { display: 'block' }, "-=0.5")
+                        // Show main content and initialize canvas now that it has layout size
+                        .call(() => {
+                            mainContent.style.display = 'block';
+                            setTimeout(() => {
+                                initCanvas();
+                            }, 100);
+                        }, [], "-=0.5")
                         .to(mainContent, { opacity: 1, duration: 0.5 }, "-=0.5")
                         // Animate Header Texts
                         .to('.getting-married-text', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.2")
@@ -976,10 +981,20 @@
 
         // Setup Canvas Cover (Gold color)
         function initCanvas() {
-            canvas.width = canvas.parentElement.offsetWidth;
-            canvas.height = canvas.parentElement.offsetHeight;
+            canvas.style.display = 'block';
+            canvas.style.opacity = '1';
+            isScratched = false;
+            hint.style.opacity = '1';
+            
+            // Wait for layout to be ready
+            let w = canvas.parentElement.offsetWidth || 300;
+            let h = canvas.parentElement.offsetHeight || 180;
+            
+            canvas.width = w;
+            canvas.height = h;
 
             // Fill gold gradient
+            ctx.globalCompositeOperation = 'source-over';
             const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
             gradient.addColorStop(0, '#e6c875');
             gradient.addColorStop(0.5, '#c5a059');
@@ -991,6 +1006,8 @@
 
         initCanvas();
         window.addEventListener('resize', initCanvas);
+
+        let scratchCounter = 0;
 
         function scratch(x, y) {
             if (!isDrawing || isScratched) return;
@@ -1005,7 +1022,11 @@
             ctx.arc(x, y, 20, 0, Math.PI * 2);
             ctx.fill();
 
-            checkScratchPercentage();
+            // Optimize performance: check percentage less often to avoid lag
+            scratchCounter++;
+            if (scratchCounter % 15 === 0) {
+                checkScratchPercentage();
+            }
         }
 
         // Calculate how much area is cleared
