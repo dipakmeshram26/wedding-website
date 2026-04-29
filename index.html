@@ -844,37 +844,33 @@
                 </div>
             </section>
 
-            <!-- RSVP / Message Form -->
+            <!-- Contact / Preshak Details -->
             <section class="form-section">
-                <h2 class="section-heading script fade-up">Send A Message</h2>
+                <h2 class="section-heading script fade-up">संपर्क / प्रेषक</h2>
 
-                <div class="form-container fade-up">
-                    <form id="rsvp-form">
-                        <div class="form-group">
-                            <label class="form-label">Your full name</label>
-                            <input type="text" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" placeholder="you@example.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Will you be attending?</label>
-                            <select class="form-control" required>
-                                <option value="" disabled selected>Select...</option>
-                                <option value="yes">Yes, I'll be there</option>
-                                <option value="no">Sorry, I can't make it</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Your Message</label>
-                            <textarea class="form-control" placeholder="Write your wishes..."></textarea>
-                        </div>
-                        <button type="submit" class="btn-solid">Send Message</button>
-                        <div id="form-success"
-                            style="display:none; color: green; margin-top: 1rem; text-align: center;">Message Sent!
-                        </div>
-                    </form>
+                <div class="form-container fade-up" style="max-width: 400px;">
+                    <div style="background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 1rem; border-left: 4px solid var(--red-dark);">
+                        <div class="serif" style="font-size: 1.1rem; color: var(--red-deep); font-weight: 600;">आयु. सुमेध विजय रामटेके</div>
+                        <div class="serif" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">माजी सरपंच कुडेगाव</div>
+                        <a href="tel:9637200209" style="text-decoration: none; color: var(--text-dark); display: flex; align-items: center; gap: 8px;">
+                            📞 <span style="font-family: 'Jost', sans-serif; font-weight: 500;">9637200209</span>
+                        </a>
+                    </div>
+
+                    <div style="background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 1rem; border-left: 4px solid var(--red-dark);">
+                        <div class="serif" style="font-size: 1.1rem; color: var(--red-deep); font-weight: 600;">आयु. निशांत भाऊदास मेश्राम</div>
+                        <div class="serif" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">ब्रम्हपुरी</div>
+                        <a href="tel:9860415820" style="text-decoration: none; color: var(--text-dark); display: flex; align-items: center; gap: 8px;">
+                            📞 <span style="font-family: 'Jost', sans-serif; font-weight: 500;">9860415820</span>
+                        </a>
+                    </div>
+
+                    <div style="background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-left: 4px solid var(--red-dark);">
+                        <div class="serif" style="font-size: 1.1rem; color: var(--red-deep); font-weight: 600;">आयु. संदेश भिमराव खोब्रागडे</div>
+                        <a href="tel:7020350569" style="text-decoration: none; color: var(--text-dark); display: flex; align-items: center; gap: 8px; margin-top: 0.5rem;">
+                            📞 <span style="font-family: 'Jost', sans-serif; font-weight: 500;">7020350569</span>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="footer-message serif fade-up">आमच्या आक्काच्या लग्नाला यायचं हं!......<br>कु. दिविता
@@ -1072,18 +1068,7 @@
             });
         }
 
-        // --- 5. RSVP FORM SUBMIT ---
-        document.getElementById('rsvp-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const btn = this.querySelector('button');
-            btn.innerText = 'Sending...';
-            btn.disabled = true;
 
-            setTimeout(() => {
-                btn.style.display = 'none';
-                document.getElementById('form-success').style.display = 'block';
-            }, 1000);
-        });
 
     </script>
 </body>
