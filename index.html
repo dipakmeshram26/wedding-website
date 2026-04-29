@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amitabh & Rekha | Wedding Invitation</title>
-    
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
     <!-- GSAP for Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -15,7 +18,7 @@
 
     <!-- Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
+
     <style>
         :root {
             --bg-light: #fdfaf6;
@@ -51,12 +54,13 @@
 
         /* --- Global App Container --- */
         #app-container {
-            max-width: 480px; /* Mobile width constraint to match reel feel */
+            max-width: 480px;
+            /* Mobile width constraint to match reel feel */
             margin: 0 auto;
             position: relative;
             background: var(--bg-light);
             min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
         /* --- Section 1: Intro (Drag to Reveal) --- */
@@ -80,14 +84,20 @@
 
         .intro-overlay {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(to bottom, rgba(253, 244, 236, 0.4), rgba(253, 244, 236, 0.9));
             z-index: 1;
         }
 
         .intro-bg-image {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             opacity: 0.3;
             pointer-events: none;
@@ -101,8 +111,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .drag-container {
@@ -124,7 +141,7 @@
             background: rgba(209, 123, 123, 0.2);
             border-radius: 2px;
             bottom: 40px;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .drag-thumb {
@@ -140,13 +157,20 @@
             position: absolute;
             bottom: 0;
             z-index: 10;
-            box-shadow: 0 8px 25px rgba(209, 123, 123, 0.6), inset 0 0 10px rgba(255,255,255,0.5);
+            box-shadow: 0 8px 25px rgba(209, 123, 123, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.5);
             animation: breathe 3s infinite ease-in-out;
         }
 
         @keyframes breathe {
-            0%, 100% { box-shadow: 0 8px 25px rgba(209, 123, 123, 0.6), inset 0 0 10px rgba(255,255,255,0.5); }
-            50% { box-shadow: 0 8px 35px rgba(209, 123, 123, 0.9), inset 0 0 15px rgba(255,255,255,0.8); }
+
+            0%,
+            100% {
+                box-shadow: 0 8px 25px rgba(209, 123, 123, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 8px 35px rgba(209, 123, 123, 0.9), inset 0 0 15px rgba(255, 255, 255, 0.8);
+            }
         }
 
         .drag-thumb::after {
@@ -165,7 +189,7 @@
             z-index: 2;
             text-align: center;
             margin-top: 6rem;
-            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         /* --- Main Content Container (Hidden initially) --- */
@@ -178,25 +202,55 @@
         /* --- Section 2: Header Reveal --- */
         .header-section {
             height: 100vh;
-            background: linear-gradient(to bottom, var(--red-deep), var(--red-dark));
+            background: url('assets/images/header_bg.jpg') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--red-dark);
             text-align: center;
             position: relative;
             overflow: hidden;
             padding: 2rem;
         }
-        
+
+        /* Added a soft white overlay so text is readable over the image */
+        .header-section::before {
+            /* content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(134, 68, 68, 0.4);
+            z-index: 1; */
+
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url(assets/images/intro_bg.png) center / cover no-repeat;
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
         .sparkles-overlay {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-image: radial-gradient(white 1px, transparent 1px);
             background-size: 30px 30px;
-            opacity: 0.1;
+            opacity: 0.2;
             pointer-events: none;
+            z-index: 2;
         }
 
         .getting-married-text {
@@ -205,13 +259,15 @@
             margin-bottom: 1rem;
             opacity: 0;
             transform: translateY(20px);
+            color: var(--text-dark);
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.8);
         }
 
         .couple-names {
             font-size: 4.5rem;
             line-height: 1.2;
-            color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            color: var(--red-deep);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
             opacity: 0;
             transform: translateY(20px);
         }
@@ -219,16 +275,28 @@
         .scroll-down-indicator {
             position: absolute;
             bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 0.8rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             opacity: 0.7;
             animation: pulse 2s infinite;
+            color: var(--red-dark);
+            z-index: 2;
+            font-weight: 600;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         /* --- Section 3: Quote & Scratch Card --- */
@@ -261,18 +329,21 @@
             margin: 0 auto;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
         }
 
         .scratch-reveal-content {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             border-radius: 15px;
         }
 
@@ -298,7 +369,10 @@
 
         #scratch-canvas {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 10;
             cursor: pointer;
             border-radius: 15px;
@@ -306,7 +380,8 @@
 
         .scratch-hint {
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             color: white;
             font-size: 1rem;
@@ -314,7 +389,7 @@
             z-index: 11;
             font-weight: 500;
             letter-spacing: 1px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         /* --- Section 4: Image & Countdown --- */
@@ -330,7 +405,7 @@
             margin: 0 auto 3rem;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
         .image-frame img {
@@ -390,8 +465,10 @@
         .timeline::before {
             content: '';
             position: absolute;
-            top: 0; left: 15px;
-            height: 100%; width: 1px;
+            top: 0;
+            left: 15px;
+            height: 100%;
+            width: 1px;
             background: var(--gold);
         }
 
@@ -407,8 +484,10 @@
 
         .timeline-dot {
             position: absolute;
-            left: 11px; top: 5px;
-            width: 9px; height: 9px;
+            left: 11px;
+            top: 5px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
             background: var(--red-dark);
             box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--gold);
@@ -451,7 +530,7 @@
             border-radius: 15px;
             overflow: hidden;
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .btn-outline {
@@ -478,7 +557,7 @@
             background: #fff;
             text-align: center;
         }
-        
+
         .events-list {
             list-style: none;
             margin-top: 2rem;
@@ -488,7 +567,7 @@
             font-size: 1.2rem;
             color: var(--text-dark);
             padding: 1rem 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .events-list li:last-child {
@@ -575,6 +654,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div id="app-container">
@@ -582,12 +662,15 @@
         <!-- INTRO SCREEN (Drag to Reveal) -->
         <div id="intro-screen">
             <div class="intro-overlay"></div>
-            
+
             <div class="intro-text-wrapper">
-                <div style="font-size: 1.2rem; color: var(--red-dark); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem;" class="serif">The Wedding Of</div>
-                <div style="font-size: 4rem; color: var(--red-deep); line-height: 1.2;" class="script">Amitabh <br> & <br> Rekha</div>
+                <div style="font-size: 1.2rem; color: var(--red-dark); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem;"
+                    class="serif">The Wedding Of</div>
+                <div style="font-size: 4rem; color: var(--red-deep); line-height: 1.2;" class="script">Amitabh <br> &
+                    <br> Rekha
+                </div>
             </div>
-            
+
             <div class="drag-container">
                 <div class="drag-line"></div>
                 <div class="drag-thumb" id="drag-thumb"></div>
@@ -596,23 +679,26 @@
 
         <!-- MAIN CONTENT (Revealed after drag) -->
         <div id="main-content">
-            
+
             <!-- Header Section -->
             <section class="header-section">
                 <div class="sparkles-overlay"></div>
-                <div class="getting-married-text serif">We're getting married</div>
-                <div class="couple-names script">Amitabh<br>&<br>Rekha</div>
-                <div class="scroll-down-indicator">Scroll</div>
+                <div class="header-content">
+                    <div class="getting-married-text serif">We're getting married</div>
+                    <div class="couple-names script">Amitabh<br>&<br>Rekha</div>
+                </div>
+                <div class="scroll-down-indicator">Scroll ↓</div>
             </section>
 
             <!-- Quote & Scratch Reveal -->
             <section class="quote-section">
                 <p class="quote-text serif fade-up">
-                    "Love is in the air ✨ Join us for a magical celebration of love, happiness, and togetherness 💖 Let's create beautiful memories together on this unforgettable day 💍"
+                    "Love is in the air ✨ Join us for a magical celebration of love, happiness, and togetherness 💖
+                    Let's create beautiful memories together on this unforgettable day 💍"
                 </p>
 
                 <h2 class="scratch-title script fade-up">Scratch to Reveal</h2>
-                
+
                 <div class="scratch-container fade-up">
                     <!-- Revealed Content (Behind Canvas) -->
                     <div class="scratch-reveal-content">
@@ -620,7 +706,7 @@
                         <div class="date serif">April 30, 2026</div>
                         <div class="day-time">Thursday • 5:27 PM</div>
                     </div>
-                    
+
                     <!-- Scratch Canvas Cover -->
                     <canvas id="scratch-canvas"></canvas>
                     <div class="scratch-hint" id="scratch-hint">✦ Scratch to Reveal ✦</div>
@@ -634,7 +720,7 @@
                 </div>
 
                 <h2 class="section-heading script fade-up">Counting Down to Forever</h2>
-                
+
                 <div class="timer-grid fade-up" id="countdown">
                     <div class="timer-box">
                         <span class="num serif" id="days">00</span>
@@ -658,7 +744,7 @@
             <!-- Program Timeline -->
             <section class="timeline-section">
                 <h2 class="section-heading script text-center fade-up" style="text-align: center;">Program Timeline</h2>
-                
+
                 <div class="timeline">
                     <div class="timeline-item fade-up">
                         <div class="timeline-dot"></div>
@@ -683,12 +769,14 @@
                 <h2 class="section-heading script fade-up">Venue</h2>
                 <div class="venue-name serif fade-up">Grand palace hall</div>
                 <div class="venue-address fade-up">Mumbai, Bandra</div>
-                
+
                 <div class="map-container fade-up">
                     <!-- Static map iframe for demo -->
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.442111531776!2d72.825833!3d19.043833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDAyJzM3LjgiTiA3MsKwNDknMzMuMCJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.442111531776!2d72.825833!3d19.043833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDAyJzM3LjgiTiA3MsKwNDknMzMuMCJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin"
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
-                
+
                 <a href="https://maps.google.com" target="_blank" class="btn-outline fade-up">View on Google Maps</a>
             </section>
 
@@ -705,7 +793,7 @@
             <!-- RSVP / Message Form -->
             <section class="form-section">
                 <h2 class="section-heading script fade-up">Send A Message</h2>
-                
+
                 <div class="form-container fade-up">
                     <form id="rsvp-form">
                         <div class="form-group">
@@ -729,7 +817,9 @@
                             <textarea class="form-control" placeholder="Write your wishes..."></textarea>
                         </div>
                         <button type="submit" class="btn-solid">Send Message</button>
-                        <div id="form-success" style="display:none; color: green; margin-top: 1rem; text-align: center;">Message Sent!</div>
+                        <div id="form-success"
+                            style="display:none; color: green; margin-top: 1rem; text-align: center;">Message Sent!
+                        </div>
                     </form>
                 </div>
 
@@ -752,15 +842,15 @@
         Draggable.create(dragThumb, {
             type: "y",
             bounds: { minY: -240, maxY: 0 }, // Allow drag up
-            onRelease: function() {
+            onRelease: function () {
                 if (isRevealed) return;
-                
+
                 // If dragged more than 60% up, trigger reveal
                 if (this.y < -150) {
                     isRevealed = true;
-                    
+
                     const tl = gsap.timeline();
-                    
+
                     // Slide intro screen up and away
                     tl.to(introScreen, {
                         y: '-100vh',
@@ -770,12 +860,12 @@
                             introScreen.style.display = 'none';
                         }
                     })
-                    // Show main content
-                    .set(mainContent, { display: 'block' }, "-=0.5")
-                    .to(mainContent, { opacity: 1, duration: 0.5 }, "-=0.5")
-                    // Animate Header Texts
-                    .to('.getting-married-text', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.2")
-                    .to('.couple-names', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
+                        // Show main content
+                        .set(mainContent, { display: 'block' }, "-=0.5")
+                        .to(mainContent, { opacity: 1, duration: 0.5 }, "-=0.5")
+                        // Animate Header Texts
+                        .to('.getting-married-text', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.2")
+                        .to('.couple-names', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
 
                     // Init scroll animations after reveal
                     setTimeout(initScrollAnimations, 1000);
@@ -791,7 +881,7 @@
         const canvas = document.getElementById('scratch-canvas');
         const ctx = canvas.getContext('2d');
         const hint = document.getElementById('scratch-hint');
-        
+
         let isDrawing = false;
         let isScratched = false;
 
@@ -799,13 +889,13 @@
         function initCanvas() {
             canvas.width = canvas.parentElement.offsetWidth;
             canvas.height = canvas.parentElement.offsetHeight;
-            
+
             // Fill gold gradient
             const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
             gradient.addColorStop(0, '#e6c875');
             gradient.addColorStop(0.5, '#c5a059');
             gradient.addColorStop(1, '#a67c00');
-            
+
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
@@ -815,10 +905,10 @@
 
         function scratch(x, y) {
             if (!isDrawing || isScratched) return;
-            
+
             // Hide hint on first scratch
-            if(hint.style.opacity !== '0') {
-                gsap.to(hint, {opacity: 0, duration: 0.3});
+            if (hint.style.opacity !== '0') {
+                gsap.to(hint, { opacity: 0, duration: 0.3 });
             }
 
             ctx.globalCompositeOperation = 'destination-out';
@@ -833,21 +923,21 @@
         function checkScratchPercentage() {
             const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
             let transparentPixels = 0;
-            
+
             for (let i = 3; i < pixels.length; i += 4) {
                 if (pixels[i] === 0) transparentPixels++;
             }
-            
+
             const totalPixels = pixels.length / 4;
             const percentScratched = (transparentPixels / totalPixels) * 100;
 
             // If 40% cleared, auto reveal the rest and fire confetti
             if (percentScratched > 40 && !isScratched) {
                 isScratched = true;
-                
+
                 // Fade out remaining canvas
                 gsap.to(canvas, {
-                    opacity: 0, 
+                    opacity: 0,
                     duration: 0.5,
                     onComplete: () => {
                         canvas.style.display = 'none';
@@ -879,8 +969,8 @@
         canvas.addEventListener('mouseup', () => { isDrawing = false; });
         canvas.addEventListener('mouseleave', () => { isDrawing = false; });
 
-        canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(getPointerPos(e).x, getPointerPos(e).y); e.preventDefault(); }, {passive: false});
-        canvas.addEventListener('touchmove', (e) => { scratch(getPointerPos(e).x, getPointerPos(e).y); e.preventDefault(); }, {passive: false});
+        canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(getPointerPos(e).x, getPointerPos(e).y); e.preventDefault(); }, { passive: false });
+        canvas.addEventListener('touchmove', (e) => { scratch(getPointerPos(e).x, getPointerPos(e).y); e.preventDefault(); }, { passive: false });
         canvas.addEventListener('touchend', () => { isDrawing = false; });
 
         // --- 3. COUNTDOWN TIMER LOGIC ---
@@ -925,7 +1015,7 @@
         }
 
         // --- 5. RSVP FORM SUBMIT ---
-        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+        document.getElementById('rsvp-form').addEventListener('submit', function (e) {
             e.preventDefault();
             const btn = this.querySelector('button');
             btn.innerText = 'Sending...';
@@ -939,4 +1029,5 @@
 
     </script>
 </body>
+
 </html>
