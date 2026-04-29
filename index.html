@@ -3,871 +3,906 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aarav & Kiara | You're Invited</title>
+    <title>Amitabh & Rekha | Wedding Invitation</title>
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     
-    <!-- GSAP -->
+    <!-- GSAP for Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --gold: #d4af37;
-            --gold-light: #f3e5ab;
-            --text-light: #ffffff;
-            --text-muted: #a0a0a0;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glow: 0 0 20px rgba(212, 175, 55, 0.5);
+            --bg-light: #fdfaf6;
+            --red-dark: #6e0000;
+            --red-deep: #4a0000;
+            --gold: #c5a059;
+            --text-dark: #333333;
+            --text-muted: #777777;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-light);
-            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            font-family: 'Jost', sans-serif;
             overflow-x: hidden;
-            overscroll-behavior: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        h1, h2, h3, .serif {
-            font-family: 'Cormorant Garamond', serif;
+        .serif {
+            font-family: 'Playfair Display', serif;
         }
 
-        /* --- Background Particles --- */
-        #particles {
-            position: fixed;
+        .script {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* --- Global App Container --- */
+        #app-container {
+            max-width: 480px; /* Mobile width constraint to match reel feel */
+            margin: 0 auto;
+            position: relative;
+            background: var(--bg-light);
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* --- Section 1: Intro (Drag to Reveal) --- */
+        #intro-screen {
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100vw;
+            width: 100%;
             height: 100vh;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* --- Section 1: Intro --- */
-        #intro {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            background-color: #fdf4ec;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 100;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
-            transition: opacity 1s ease;
-        }
-
-        .pov-text {
-            position: absolute;
-            top: 15vh;
-            font-size: 1.2rem;
-            text-align: center;
-            color: var(--text-muted);
-            opacity: 0.8;
-            max-width: 80%;
-            line-height: 1.4;
-        }
-
-        .orb-container {
-            position: relative;
-            width: 100px;
-            height: 250px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            margin-top: 50px;
-        }
-
-        .drag-track {
-            position: absolute;
-            width: 4px;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            bottom: 40px;
-        }
-
-        .orb {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, var(--gold-light), var(--gold));
-            box-shadow: var(--glow), inset 0 0 20px rgba(255,255,255,0.5);
-            cursor: grab;
-            position: absolute;
-            bottom: 0;
-            z-index: 2;
-            touch-action: none; /* Prevents scroll interference */
-        }
-        
-        .orb:active {
-            cursor: grabbing;
-        }
-
-        .drag-text {
-            position: absolute;
-            bottom: -50px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--gold);
-            animation: pulse 2s infinite;
-            white-space: nowrap;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: translateY(0); }
-            50% { opacity: 1; transform: translateY(-5px); }
-        }
-
-        /* --- Main Content --- */
-        #main-content {
-            opacity: 0;
-            visibility: hidden;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* --- Section 2: Reveal --- */
-        .reveal-section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 4rem 2.5rem;
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.1);
-            position: relative;
             overflow: hidden;
         }
-        
-        .glass-card::before {
-            content: '';
+
+        .intro-bg-image {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 24px;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(212,175,55,0.6), transparent, rgba(212,175,55,0.2));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
             pointer-events: none;
         }
 
-        .reveal-text {
+        .heart-icon {
+            color: #d17b7b;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .drag-container {
+            position: relative;
+            width: 80px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-top: auto;
+            margin-bottom: 20vh;
+        }
+
+        .drag-line {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: rgba(209, 123, 123, 0.3);
+            bottom: 40px;
+        }
+
+        .drag-thumb {
+            width: 60px;
+            height: 60px;
+            background: #d17b7b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            position: absolute;
+            bottom: 0;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(209, 123, 123, 0.4);
+        }
+
+        .drag-thumb::after {
+            content: '↑';
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .drag-thumb:active {
+            cursor: grabbing;
+        }
+
+        /* --- Main Content Container (Hidden initially) --- */
+        #main-content {
+            display: none;
+            opacity: 0;
+            width: 100%;
+        }
+
+        /* --- Section 2: Header Reveal --- */
+        .header-section {
+            height: 100vh;
+            background: linear-gradient(to bottom, var(--red-deep), var(--red-dark));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+        
+        .sparkles-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .getting-married-text {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
             opacity: 0;
             transform: translateY(20px);
         }
 
-        .subtitle {
-            font-size: 1rem;
+        .couple-names {
+            font-size: 4.5rem;
+            line-height: 1.2;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .scroll-down-indicator {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            opacity: 0.7;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* --- Section 3: Quote & Scratch Card --- */
+        .quote-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: var(--bg-light);
+            position: relative;
+        }
+
+        .quote-text {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 4rem;
+        }
+
+        .scratch-title {
+            font-size: 2rem;
             color: var(--gold);
             margin-bottom: 1.5rem;
+        }
+
+        .scratch-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            height: 180px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .scratch-reveal-content {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 15px;
+        }
+
+        .scratch-reveal-content .youre-invited {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .scratch-reveal-content .date {
+            font-size: 1.8rem;
+            color: var(--red-dark);
             font-weight: 600;
         }
 
-        .names {
-            font-size: 4rem;
-            color: var(--gold-light);
-            margin-bottom: 1rem;
-            line-height: 1.1;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-        }
-
-        .event-type {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+        .scratch-reveal-content .day-time {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            letter-spacing: 1px;
         }
 
-        .date-time {
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 1.5rem 0;
-            margin-top: 2rem;
-        }
-
-        /* --- Section 3: Story --- */
-        .story-section {
-            padding: 8rem 2rem;
-            text-align: center;
-            position: relative;
-            background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.05), transparent);
-        }
-
-        .story-text {
-            font-size: 2.2rem;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.6;
-            color: var(--gold-light);
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-
-        /* --- Section 4: Gallery --- */
-        .gallery-section {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            color: var(--gold);
-            margin-bottom: 3.5rem;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            aspect-ratio: 3/4;
+        #scratch-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 15px;
         }
 
-        .gallery-item img {
+        .scratch-hint {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1rem;
+            pointer-events: none;
+            z-index: 11;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* --- Section 4: Image & Countdown --- */
+        .countdown-section {
+            padding: 2rem 2rem 4rem;
+            text-align: center;
+            background: var(--bg-light);
+        }
+
+        .image-frame {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s ease;
-            filter: brightness(0.7) grayscale(20%);
+            max-width: 320px;
+            margin: 0 auto 3rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
 
-        .gallery-item:hover img {
-            transform: scale(1.08);
-            filter: brightness(1.1) grayscale(0%);
+        .image-frame img {
+            width: 100%;
+            display: block;
         }
 
-        /* --- Section 5: Details --- */
-        .details-section {
-            padding: 6rem 2rem;
-            max-width: 1100px;
+        .section-heading {
+            font-size: 2rem;
+            color: var(--red-dark);
+            margin-bottom: 2rem;
+        }
+
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .timer-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60px;
+        }
+
+        .timer-box span.num {
+            font-size: 2rem;
+            color: var(--text-dark);
+            font-weight: 400;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .timer-box span.label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        /* --- Section 5: Timeline --- */
+        .timeline-section {
+            padding: 4rem 2rem;
+            background: #fff;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 300px;
             margin: 0 auto;
         }
 
-        .cards-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 15px;
+            height: 100%; width: 1px;
+            background: var(--gold);
         }
 
-        .detail-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            flex: 1;
-            min-width: 280px;
-            text-align: center;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-            backdrop-filter: blur(10px);
-        }
-        
-        .detail-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
-            border-color: rgba(212, 175, 55, 0.4);
+        .timeline-item {
+            position: relative;
+            padding-left: 45px;
+            margin-bottom: 2.5rem;
         }
 
-        .detail-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            display: block;
-            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+        .timeline-item:last-child {
+            margin-bottom: 0;
         }
 
-        .detail-title {
-            color: var(--gold);
-            margin-bottom: 0.8rem;
-            font-size: 1.4rem;
+        .timeline-dot {
+            position: absolute;
+            left: 11px; top: 5px;
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            background: var(--red-dark);
+            box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--gold);
         }
 
-        /* --- Section 6: Map --- */
-        .map-section {
+        .time-text {
+            font-size: 0.9rem;
+            color: var(--red-dark);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .event-text {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        /* --- Section 6: Venue & Map --- */
+        .venue-section {
             padding: 4rem 2rem;
             text-align: center;
-            max-width: 1000px;
-            margin: 0 auto;
+            background: var(--bg-light);
+        }
+
+        .venue-name {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .venue-address {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
         }
 
         .map-container {
-            border-radius: 24px;
-            overflow: hidden;
-            margin-bottom: 2.5rem;
-            border: 1px solid var(--glass-border);
-            height: 450px;
-            position: relative;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        .map-container iframe {
             width: 100%;
-            height: 100%;
-            border: none;
-            filter: invert(90%) hue-rotate(180deg) contrast(1.2) brightness(0.9);
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(45deg, var(--gold), #b8860b);
-            color: #000;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-size: 0.9rem;
-            position: relative;
+            height: 250px;
+            border-radius: 15px;
             overflow: hidden;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: rgba(255,255,255,0.2);
-            transform: rotate(45deg) translateY(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .btn:hover::after {
-            transform: rotate(45deg) translateY(100%);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-        }
-        
         .btn-outline {
-            background: transparent;
-            color: var(--gold);
-            border: 1px solid var(--gold);
-        }
-        
-        .btn-outline:hover {
-            background: rgba(212, 175, 55, 0.15);
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.2);
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border: 1px solid var(--red-dark);
+            color: var(--red-dark);
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
         }
 
-        /* --- Section 7: RSVP --- */
-        .rsvp-section {
-            padding: 6rem 2rem;
-            max-width: 650px;
+        .btn-outline:hover {
+            background: var(--red-dark);
+            color: white;
+        }
+
+        /* --- Section 7: Pre-Wedding Events --- */
+        .events-section {
+            padding: 4rem 2rem;
+            background: #fff;
+            text-align: center;
+        }
+        
+        .events-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .events-list li {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .events-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* --- Section 8: RSVP Form --- */
+        .form-section {
+            padding: 4rem 2rem 6rem;
+            background: var(--bg-light);
+            text-align: center;
+        }
+
+        .form-container {
+            max-width: 350px;
             margin: 0 auto;
+            text-align: left;
         }
 
         .form-group {
-            margin-bottom: 1.8rem;
-            text-align: left;
+            margin-bottom: 1.2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .form-control {
             width: 100%;
-            padding: 1.2rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
+            padding: 0.8rem;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            background: transparent;
+            font-family: 'Jost', sans-serif;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            color: var(--text-dark);
+            transition: border-color 0.3s;
         }
-        
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-        
+
         .form-control:focus {
             outline: none;
-            border-color: var(--gold);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            border-bottom-color: var(--red-dark);
         }
 
-        select.form-control {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23D4AF37%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right 1.2rem top 50%;
-            background-size: 0.65rem auto;
+        textarea.form-control {
+            resize: none;
+            height: 80px;
         }
 
-        select.form-control option {
-            background-color: var(--bg-color);
-            color: #fff;
+        .btn-solid {
+            width: 100%;
+            padding: 1rem;
+            background: var(--red-dark);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            cursor: pointer;
         }
 
-        .success-msg {
-            display: none;
-            color: #4ade80;
-            text-align: center;
-            margin-top: 1.5rem;
-            padding: 1.2rem;
-            background: rgba(74, 222, 128, 0.1);
-            border-radius: 12px;
-            border: 1px solid rgba(74, 222, 128, 0.3);
-            font-weight: 600;
-            box-shadow: 0 0 20px rgba(74, 222, 128, 0.1);
+        .footer-message {
+            margin-top: 4rem;
+            font-size: 1.5rem;
+            color: var(--text-dark);
         }
 
-        /* --- Section 8: Contact --- */
-        .contact-section {
-            padding: 4rem 2rem 8rem;
-            text-align: center;
+        .footer-names {
+            font-size: 2.5rem;
+            color: var(--red-dark);
+            margin-top: 1rem;
         }
 
-        .contact-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
-        
-        .whatsapp-btn {
-            border-color: #25D366;
-            color: #25D366;
-        }
-        .whatsapp-btn:hover {
-            background: rgba(37, 211, 102, 0.15);
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.2);
-        }
-
-        /* --- Section 9: Footer --- */
-        footer {
-            text-align: center;
-            padding: 3rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-        }
-
-        .heart {
-            color: #ff4d4d;
-            display: inline-block;
-            animation: heartbeat 1.5s infinite;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        /* Utility */
+        /* Utils */
         .fade-up {
             opacity: 0;
-            transform: translateY(40px);
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .names { font-size: 3rem; }
-            .story-text { font-size: 1.6rem; padding: 0 1rem; }
-            .section-title { font-size: 2.2rem; }
-            .glass-card { padding: 3rem 1.5rem; }
-            .contact-buttons { flex-direction: column; width: 100%; max-width: 300px; margin-inline: auto; }
-            .btn { width: 100%; }
+            transform: translateY(30px);
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Particles -->
-    <canvas id="particles"></canvas>
+    <div id="app-container">
 
-    <!-- Section 1: Intro -->
-    <div id="intro">
-        <div class="pov-text">POV: Want an invitation everyone talks about 🔥😭</div>
-        
-        <div class="orb-container">
-            <div class="drag-track"></div>
-            <div class="orb" id="orb"></div>
-            <div class="drag-text">Drag to Open</div>
+        <!-- INTRO SCREEN (Drag to Reveal) -->
+        <div id="intro-screen">
+            <div style="font-size: 1.5rem; color: var(--text-muted); margin-top: 5rem;" class="script">You're Invited</div>
+            
+            <div class="drag-container">
+                <div class="drag-line"></div>
+                <div class="drag-thumb" id="drag-thumb"></div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT (Revealed after drag) -->
+        <div id="main-content">
+            
+            <!-- Header Section -->
+            <section class="header-section">
+                <div class="sparkles-overlay"></div>
+                <div class="getting-married-text serif">We're getting married</div>
+                <div class="couple-names script">Amitabh<br>&<br>Rekha</div>
+                <div class="scroll-down-indicator">Scroll</div>
+            </section>
+
+            <!-- Quote & Scratch Reveal -->
+            <section class="quote-section">
+                <p class="quote-text serif fade-up">
+                    "Love is in the air ✨ Join us for a magical celebration of love, happiness, and togetherness 💖 Let's create beautiful memories together on this unforgettable day 💍"
+                </p>
+
+                <h2 class="scratch-title script fade-up">Scratch to Reveal</h2>
+                
+                <div class="scratch-container fade-up">
+                    <!-- Revealed Content (Behind Canvas) -->
+                    <div class="scratch-reveal-content">
+                        <div class="youre-invited">You're Invited!</div>
+                        <div class="date serif">April 30, 2026</div>
+                        <div class="day-time">Thursday • 5:27 PM</div>
+                    </div>
+                    
+                    <!-- Scratch Canvas Cover -->
+                    <canvas id="scratch-canvas"></canvas>
+                    <div class="scratch-hint" id="scratch-hint">✦ Scratch to Reveal ✦</div>
+                </div>
+            </section>
+
+            <!-- Image & Countdown -->
+            <section class="countdown-section">
+                <div class="image-frame fade-up">
+                    <img src="assets/images/couple_portrait.png" alt="Couple Portrait">
+                </div>
+
+                <h2 class="section-heading script fade-up">Counting Down to Forever</h2>
+                
+                <div class="timer-grid fade-up" id="countdown">
+                    <div class="timer-box">
+                        <span class="num serif" id="days">00</span>
+                        <span class="label">Days</span>
+                    </div>
+                    <div class="timer-box">
+                        <span class="num serif" id="hours">00</span>
+                        <span class="label">Hours</span>
+                    </div>
+                    <div class="timer-box">
+                        <span class="num serif" id="minutes">00</span>
+                        <span class="label">Minutes</span>
+                    </div>
+                    <div class="timer-box">
+                        <span class="num serif" id="seconds">00</span>
+                        <span class="label">Seconds</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Program Timeline -->
+            <section class="timeline-section">
+                <h2 class="section-heading script text-center fade-up" style="text-align: center;">Program Timeline</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item fade-up">
+                        <div class="timeline-dot"></div>
+                        <div class="time-text serif">4:00 PM</div>
+                        <div class="event-text">Guest Arrival</div>
+                    </div>
+                    <div class="timeline-item fade-up">
+                        <div class="timeline-dot"></div>
+                        <div class="time-text serif">5:00 PM</div>
+                        <div class="event-text">Wedding Ceremony</div>
+                    </div>
+                    <div class="timeline-item fade-up">
+                        <div class="timeline-dot"></div>
+                        <div class="time-text serif">7:00 PM</div>
+                        <div class="event-text">Dinner Reception</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Venue & Map -->
+            <section class="venue-section">
+                <h2 class="section-heading script fade-up">Venue</h2>
+                <div class="venue-name serif fade-up">Grand palace hall</div>
+                <div class="venue-address fade-up">Mumbai, Bandra</div>
+                
+                <div class="map-container fade-up">
+                    <!-- Static map iframe for demo -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.442111531776!2d72.825833!3d19.043833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDAyJzM3LjgiTiA3MsKwNDknMzMuMCJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                
+                <a href="https://maps.google.com" target="_blank" class="btn-outline fade-up">View on Google Maps</a>
+            </section>
+
+            <!-- Pre-Wedding Events -->
+            <section class="events-section">
+                <h2 class="section-heading script fade-up">Pre-Wedding Events</h2>
+                <ul class="events-list">
+                    <li class="serif fade-up">Sangeet ceremony</li>
+                    <li class="serif fade-up">Haldi ceremony</li>
+                    <li class="serif fade-up">Mehendi ceremony</li>
+                </ul>
+            </section>
+
+            <!-- RSVP / Message Form -->
+            <section class="form-section">
+                <h2 class="section-heading script fade-up">Send A Message</h2>
+                
+                <div class="form-container fade-up">
+                    <form id="rsvp-form">
+                        <div class="form-group">
+                            <label class="form-label">Your full name</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Will you be attending?</label>
+                            <select class="form-control" required>
+                                <option value="" disabled selected>Select...</option>
+                                <option value="yes">Yes, I'll be there</option>
+                                <option value="no">Sorry, I can't make it</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Your Message</label>
+                            <textarea class="form-control" placeholder="Write your wishes..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-solid">Send Message</button>
+                        <div id="form-success" style="display:none; color: green; margin-top: 1rem; text-align: center;">Message Sent!</div>
+                    </form>
+                </div>
+
+                <div class="footer-message serif fade-up">We can't wait to celebrate with you!</div>
+                <div class="footer-names script fade-up">Amitabh & Rekha</div>
+            </section>
+
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div id="main-content">
-        <!-- Section 2: Reveal -->
-        <section class="reveal-section">
-            <div class="glass-card">
-                <div class="reveal-text subtitle">You're Invited</div>
-                <div class="reveal-text names serif">Aarav <span style="color: #ff4d4d; font-family: sans-serif; font-size: 0.7em; vertical-align: middle;">❤️</span> Kiara</div>
-                <div class="reveal-text event-type">To our Wedding Celebration</div>
-                <div class="reveal-text date-time serif">
-                    <p style="margin-bottom: 0.5rem; font-size: 1.4rem;">25 December 2026</p>
-                    <p style="color: var(--gold); font-size: 1.1rem;">7:00 PM onwards</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 3: Story -->
-        <section class="story-section">
-            <p class="story-text serif fade-up">
-                "With the blessings of our families,<br>
-                we invite you to celebrate our special day as we begin a new chapter of love and togetherness."
-            </p>
-        </section>
-
-        <!-- Section 4: Gallery -->
-        <section class="gallery-section">
-            <h2 class="section-title serif fade-up">Moments</h2>
-            <div class="grid">
-                <div class="gallery-item fade-up">
-                    <img src="assets/images/wedding_couple.png" alt="Couple">
-                </div>
-                <div class="gallery-item fade-up" style="transition-delay: 0.1s;">
-                    <img src="assets/images/wedding_rings.png" alt="Rings">
-                </div>
-                <div class="gallery-item fade-up" style="transition-delay: 0.2s;">
-                    <img src="assets/images/wedding_venue.png" alt="Venue">
-                </div>
-                <div class="gallery-item fade-up" style="transition-delay: 0.3s;">
-                    <img src="assets/images/wedding_toast.png" alt="Toast">
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 5: Details -->
-        <section class="details-section">
-            <h2 class="section-title serif fade-up">The Details</h2>
-            <div class="cards-container">
-                <div class="detail-card fade-up">
-                    <span class="detail-icon">📅</span>
-                    <h3 class="detail-title serif">When</h3>
-                    <p>Friday, 25th Dec 2026</p>
-                    <p style="margin-top:0.5rem; font-size: 0.9rem; color: var(--text-muted);">7:00 PM - Midnight</p>
-                </div>
-                <div class="detail-card fade-up" style="transition-delay: 0.1s;">
-                    <span class="detail-icon">🏰</span>
-                    <h3 class="detail-title serif">Where</h3>
-                    <p>The Royal Palace</p>
-                    <p style="margin-top:0.5rem; font-size: 0.9rem; color: var(--text-muted);">Mumbai, Maharashtra</p>
-                </div>
-                <div class="detail-card fade-up" style="transition-delay: 0.2s;">
-                    <span class="detail-icon">👔</span>
-                    <h3 class="detail-title serif">Dress Code</h3>
-                    <p>Traditional / Formal</p>
-                    <p style="margin-top:0.5rem; font-size: 0.9rem; color: var(--text-muted);">Black & Gold Theme</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 6: Map -->
-        <section class="map-section fade-up">
-            <h2 class="section-title serif">Location</h2>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d120638.06452273574!2d72.8346543!3d19.113645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <a href="https://maps.google.com" target="_blank" class="btn btn-outline">Open in Google Maps</a>
-        </section>
-
-        <!-- Section 7: RSVP -->
-        <section class="rsvp-section fade-up">
-            <h2 class="section-title serif">RSVP</h2>
-            <div class="glass-card" style="max-width: 100%; padding: 2.5rem 2rem;">
-                <form id="rsvp-form">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Your Full Name" required>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" required>
-                            <option value="" disabled selected>Number of Guests</option>
-                            <option value="1">1 Person</option>
-                            <option value="2">2 Persons</option>
-                            <option value="3">3 Persons</option>
-                            <option value="4">4+ Persons</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" required>
-                            <option value="" disabled selected>Will you attend?</option>
-                            <option value="yes">Joyfully Accept</option>
-                            <option value="no">Regretfully Decline</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">Submit RSVP</button>
-                    <div class="success-msg" id="success-msg">Thank you! Your RSVP has been confirmed.</div>
-                </form>
-            </div>
-        </section>
-
-        <!-- Section 8: Contact -->
-        <section class="contact-section fade-up">
-            <h2 class="section-title serif">Get in Touch</h2>
-            <p style="color: var(--text-muted); font-size: 1.1rem;">For any queries or assistance</p>
-            <div class="contact-buttons">
-                <a href="tel:+919876543210" class="btn btn-outline">📞 Call Now</a>
-                <a href="https://wa.me/919876543210" target="_blank" class="btn btn-outline whatsapp-btn">💬 WhatsApp</a>
-                <a href="mailto:hello@wedding.com" class="btn btn-outline">✉️ Email</a>
-            </div>
-        </section>
-
-        <!-- Section 9: Footer -->
-        <footer>
-            <p>Made with <span class="heart">❤️</span> for Aarav & Kiara</p>
-        </footer>
-    </div>
-
     <script>
-        // --- 1. Particles Background Animation ---
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        let width, height, particles = [];
-
-        function initParticles() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            particles = [];
-            // Create responsive number of particles
-            const numParticles = window.innerWidth < 768 ? 30 : 60;
-            for (let i = 0; i < numParticles; i++) {
-                particles.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    r: Math.random() * 2.5 + 0.5,
-                    dx: (Math.random() - 0.5) * 0.4,
-                    dy: (Math.random() - 0.5) * 0.4,
-                    opacity: Math.random() * 0.6 + 0.1
-                });
-            }
-        }
-
-        function drawParticles() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => {
-                p.x += p.dx;
-                p.y += p.dy;
-                
-                // Wrap around edges
-                if (p.x < 0) p.x = width;
-                if (p.x > width) p.x = 0;
-                if (p.y < 0) p.y = height;
-                if (p.y > height) p.y = 0;
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(212, 175, 55, ${p.opacity})`;
-                ctx.fill();
-            });
-            requestAnimationFrame(drawParticles);
-        }
-
-        window.addEventListener('resize', initParticles);
-        initParticles();
-        drawParticles();
-
-        // --- 2. GSAP Animations ---
         gsap.registerPlugin(ScrollTrigger, Draggable);
 
-        // Interactive Orb Logic
-        const orb = document.getElementById('orb');
-        const intro = document.getElementById('intro');
+        // --- 1. DRAG TO REVEAL LOGIC ---
+        const dragThumb = document.getElementById('drag-thumb');
+        const introScreen = document.getElementById('intro-screen');
         const mainContent = document.getElementById('main-content');
-        
-        let unlocked = false;
+        let isRevealed = false;
 
-        Draggable.create(orb, {
+        Draggable.create(dragThumb, {
             type: "y",
-            bounds: { minY: -180, maxY: 0 },
-            onDrag: function() {
-                if (unlocked) return;
-                // Calculate progress based on drag distance
-                const progress = Math.abs(this.y) / 180;
-                
-                // Fade out intro text
-                gsap.to('.drag-text', { opacity: 1 - progress * 2, duration: 0.1 });
-                gsap.to('.pov-text', { opacity: 1 - progress, duration: 0.1 });
-                
-                // Increase orb glow and size
-                gsap.to(orb, { 
-                    boxShadow: `0 0 ${20 + progress * 50}px rgba(212, 175, 55, ${0.5 + progress * 0.5}), inset 0 0 20px rgba(255,255,255,0.8)`,
-                    scale: 1 + progress * 0.15,
-                    duration: 0.1
-                });
-            },
+            bounds: { minY: -240, maxY: 0 }, // Allow drag up
             onRelease: function() {
-                if (unlocked) return;
-                // Threshold to trigger unlock (approx 80% dragged)
-                if (this.y <= -140) {
-                    unlocked = true;
+                if (isRevealed) return;
+                
+                // If dragged more than 60% up, trigger reveal
+                if (this.y < -150) {
+                    isRevealed = true;
                     
-                    // Unlock Cinematic Sequence
                     const tl = gsap.timeline();
                     
-                    // 1. Orb expands to cover screen
-                    tl.to(orb, {
-                        scale: window.innerWidth < 768 ? 40 : 60,
-                        opacity: 0,
-                        duration: 1.2,
-                        ease: "power4.inOut"
-                    })
-                    // 2. Fade out intro overlay
-                    .to(intro, {
-                        opacity: 0,
-                        duration: 0.8,
-                        ease: "power2.inOut",
+                    // Slide intro screen up and away
+                    tl.to(introScreen, {
+                        y: '-100vh',
+                        duration: 1,
+                        ease: "power3.inOut",
                         onComplete: () => {
-                            intro.style.display = 'none';
-                            mainContent.style.visibility = 'visible';
-                            window.scrollTo(0, 0);
+                            introScreen.style.display = 'none';
                         }
-                    }, "-=0.6")
-                    // 3. Reveal Main Content
-                    .to(mainContent, {
-                        opacity: 1,
-                        duration: 0.8
-                    }, "-=0.2")
-                    // 4. Staggered fade up of invitation details
-                    .fromTo('.reveal-text', 
-                        { y: 50, opacity: 0, filter: 'blur(8px)' },
-                        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.2, stagger: 0.15, ease: "back.out(1.5)" },
-                        "-=0.4"
-                    );
-                    
-                    // Initialize ScrollTriggers after the reveal sequence
-                    setTimeout(initScrollAnimations, 1500);
+                    })
+                    // Show main content
+                    .set(mainContent, { display: 'block' }, "-=0.5")
+                    .to(mainContent, { opacity: 1, duration: 0.5 }, "-=0.5")
+                    // Animate Header Texts
+                    .to('.getting-married-text', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.2")
+                    .to('.couple-names', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=0.7");
+
+                    // Init scroll animations after reveal
+                    setTimeout(initScrollAnimations, 1000);
+
                 } else {
-                    // Snap back to bottom if not dragged enough
-                    gsap.to(orb, { 
-                        y: 0, 
-                        scale: 1, 
-                        boxShadow: '0 0 20px rgba(212, 175, 55, 0.5), inset 0 0 20px rgba(255,255,255,0.5)', 
-                        duration: 0.8, 
-                        ease: "elastic.out(1, 0.4)" 
-                    });
-                    gsap.to('.drag-text', { opacity: 1, duration: 0.3 });
-                    gsap.to('.pov-text', { opacity: 0.8, duration: 0.3 });
+                    // Snap back to bottom
+                    gsap.to(dragThumb, { y: 0, duration: 0.5, ease: "back.out(1.5)" });
                 }
             }
         });
 
-        // Scroll Animations (triggered as user scrolls down)
+        // --- 2. SCRATCH CARD LOGIC ---
+        const canvas = document.getElementById('scratch-canvas');
+        const ctx = canvas.getContext('2d');
+        const hint = document.getElementById('scratch-hint');
+        
+        let isDrawing = false;
+        let isScratched = false;
+
+        // Setup Canvas Cover (Gold color)
+        function initCanvas() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+            
+            // Fill gold gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#e6c875');
+            gradient.addColorStop(0.5, '#c5a059');
+            gradient.addColorStop(1, '#a67c00');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        initCanvas();
+        window.addEventListener('resize', initCanvas);
+
+        function scratch(x, y) {
+            if (!isDrawing || isScratched) return;
+            
+            // Hide hint on first scratch
+            if(hint.style.opacity !== '0') {
+                gsap.to(hint, {opacity: 0, duration: 0.3});
+            }
+
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, Math.PI * 2);
+            ctx.fill();
+
+            checkScratchPercentage();
+        }
+
+        // Calculate how much area is cleared
+        function checkScratchPercentage() {
+            const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+            let transparentPixels = 0;
+            
+            for (let i = 3; i < pixels.length; i += 4) {
+                if (pixels[i] === 0) transparentPixels++;
+            }
+            
+            const totalPixels = pixels.length / 4;
+            const percentScratched = (transparentPixels / totalPixels) * 100;
+
+            // If 40% cleared, auto reveal the rest and fire confetti
+            if (percentScratched > 40 && !isScratched) {
+                isScratched = true;
+                
+                // Fade out remaining canvas
+                gsap.to(canvas, {
+                    opacity: 0, 
+                    duration: 0.5,
+                    onComplete: () => {
+                        canvas.style.display = 'none';
+                        // Fire Confetti!
+                        confetti({
+                            particleCount: 100,
+                            spread: 70,
+                            origin: { y: 0.6 },
+                            colors: ['#c5a059', '#6e0000', '#ffffff']
+                        });
+                    }
+                });
+            }
+        }
+
+        // Event Listeners for Scratching
+        function getPointerPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(getPointerPos(e).x, getPointerPos(e).y); });
+        canvas.addEventListener('mousemove', (e) => { scratch(getPointerPos(e).x, getPointerPos(e).y); });
+        canvas.addEventListener('mouseup', () => { isDrawing = false; });
+        canvas.addEventListener('mouseleave', () => { isDrawing = false; });
+
+        canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(getPointerPos(e).x, getPointerPos(e).y); e.preventDefault(); }, {passive: false});
+        canvas.addEventListener('touchmove', (e) => { scratch(getPointerPos(e).x, getPointerPos(e).y); e.preventDefault(); }, {passive: false});
+        canvas.addEventListener('touchend', () => { isDrawing = false; });
+
+        // --- 3. COUNTDOWN TIMER LOGIC ---
+        const targetDate = new Date("April 30, 2026 17:27:00").getTime();
+
+        const timerInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        }, 1000);
+
+        // --- 4. SCROLL ANIMATIONS ---
         function initScrollAnimations() {
-            // Fade up elements
             const fadeUps = gsap.utils.toArray('.fade-up');
             fadeUps.forEach(element => {
-                gsap.fromTo(element, 
-                    { y: 60, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 1.2,
-                        ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: element,
-                            start: "top 85%", // Trigger when top of element hits 85% of viewport
-                            toggleActions: "play none none reverse"
-                        }
+                gsap.to(element, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
                     }
-                );
-            });
-
-            // Subtle Parallax on Story Section Text
-            gsap.to('.story-text', {
-                y: -30,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: '.story-section',
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
+                });
             });
         }
 
-        // --- 3. RSVP Form Handling (Frontend Only) ---
+        // --- 5. RSVP FORM SUBMIT ---
         document.getElementById('rsvp-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = this.querySelector('button[type="submit"]');
-            const msg = document.getElementById('success-msg');
-            const inputs = this.querySelectorAll('.form-control');
-            
-            // Loading state
-            const originalText = btn.textContent;
-            btn.textContent = 'Sending...';
-            btn.style.opacity = '0.7';
-            btn.style.cursor = 'not-allowed';
+            const btn = this.querySelector('button');
+            btn.innerText = 'Sending...';
             btn.disabled = true;
 
-            // Simulate network request
             setTimeout(() => {
-                // Hide button and inputs smoothly
-                gsap.to([btn, ...inputs], {
-                    opacity: 0,
-                    height: 0,
-                    padding: 0,
-                    margin: 0,
-                    duration: 0.4,
-                    onComplete: () => {
-                        btn.style.display = 'none';
-                        inputs.forEach(i => i.style.display = 'none');
-                        
-                        // Show success message with pop animation
-                        msg.style.display = 'block';
-                        gsap.fromTo(msg, 
-                            { scale: 0.8, opacity: 0 },
-                            { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.5)" }
-                        );
-                    }
-                });
-            }, 1500);
+                btn.style.display = 'none';
+                document.getElementById('form-success').style.display = 'block';
+            }, 1000);
         });
 
-        // Prevent rubber-banding on iOS
-        document.addEventListener('touchmove', function(e) {
-            if (!unlocked) {
-                e.preventDefault();
-            }
-        }, { passive: false });
     </script>
 </body>
 </html>
