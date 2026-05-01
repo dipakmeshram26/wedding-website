@@ -9,7 +9,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amita:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Yatra+One&display=swap"
+        rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -54,6 +55,61 @@
         .script {
             font-family: 'Amita', cursive;
             font-weight: 700;
+        }
+
+        /* --- Mangal Parinay Stylized Logo --- */
+        .mangal-logo-container {
+            position: relative;
+            display: inline-block;
+            margin: 0.5rem auto 1.5rem;
+            padding: 10px 20px;
+            color: var(--text-dark);
+            /* Default color similar to reference image */
+        }
+
+        .mangal-logo-text {
+            font-family: 'Yatra One', cursive;
+            color: inherit;
+            line-height: 1;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .mangal-logo-text .mangal {
+            font-size: 2.5rem;
+            position: relative;
+            z-index: 2;
+            margin-right: 5px;
+            margin-bottom: 29px;
+            text-shadow: 2px 2px 0px var(--bg-light), -1px -1px 0px var(--bg-light);
+        }
+
+        .mangal-logo-text .parinay {
+            font-size: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mangal-logo-swoosh {
+            position: absolute;
+            bottom: -5px;
+            left: 10%;
+            width: 80%;
+            height: 25px;
+            pointer-events: none;
+            color: inherit;
+        }
+
+        .mangal-logo-flowers {
+            position: absolute;
+            top: -20px;
+            right: -15px;
+            width: 70px;
+            height: auto;
+            pointer-events: none;
+            color: inherit;
         }
 
         /* --- Global App Container --- */
@@ -675,8 +731,38 @@
             <div class="intro-overlay"></div>
 
             <div class="intro-text-wrapper">
-                <div style="font-size: 1.2rem; color: var(--red-dark); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem;"
-                    class="serif">मंगल परिणय...</div>
+                <div class="mangal-logo-container"
+                    style="color: var(--red-dark); transform: scale(0.9); margin-bottom: 0;">
+                    <svg class="mangal-logo-flowers" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 20 80 Q 50 40, 80 20" fill="none" stroke="currentColor" stroke-width="2" />
+                        <g transform="translate(80, 20) scale(0.25)" fill="currentColor">
+                            <path
+                                d="M0,0 C-15,-25 -40,-15 -25,10 C-50,0 -50,25 -25,25 C-40,50 -15,40 0,15 C15,40 40,50 25,25 C50,25 50,0 25,10 C40,-15 15,-25 0,0 Z" />
+                            <circle cx="0" cy="15" r="8" fill="#fff" />
+                        </g>
+                        <g transform="translate(55, 45) scale(0.2)" fill="currentColor">
+                            <path
+                                d="M0,0 C-15,-25 -40,-15 -25,10 C-50,0 -50,25 -25,25 C-40,50 -15,40 0,15 C15,40 40,50 25,25 C50,25 50,0 25,10 C40,-15 15,-25 0,0 Z" />
+                            <circle cx="0" cy="15" r="8" fill="#fff" />
+                        </g>
+                        <g transform="translate(25, 75) scale(0.15)" fill="currentColor">
+                            <path
+                                d="M0,0 C-15,-25 -40,-15 -25,10 C-50,0 -50,25 -25,25 C-40,50 -15,40 0,15 C15,40 40,50 25,25 C50,25 50,0 25,10 C40,-15 15,-25 0,0 Z" />
+                            <circle cx="0" cy="15" r="8" fill="#fff" />
+                        </g>
+                    </svg>
+                    <div class="mangal-logo-text">
+                        <span class="mangal">मंगल</span>
+                        <span class="parinay">परिणय</span>
+                    </div>
+                    <svg class="mangal-logo-swoosh" viewBox="0 0 200 50" preserveAspectRatio="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 10 20 Q 100 50, 190 10" fill="none" stroke="currentColor" stroke-width="4"
+                            stroke-linecap="round" />
+                        <path d="M 175 5 Q 185 10, 190 10 Q 185 15, 175 20" fill="none" stroke="currentColor"
+                            stroke-width="3" stroke-linecap="round" />
+                    </svg>
+                </div>
                 <div style="font-size: 3.5rem; color: var(--red-deep); line-height: 1.2;" class="script">स्नेहा <br>
                     <span style="font-size: 2rem; opacity: 0.8;">संग</span>
                     <br> वैभव
@@ -696,7 +782,38 @@
             <section class="header-section">
                 <div class="sparkles-overlay"></div>
                 <div class="header-content">
-                    <div class="getting-married-text serif">मंगल परिणय...</div>
+                    <div class="mangal-logo-container"
+                        style="color: var(--gold); transform: scale(0.8); margin-bottom: -10px;">
+                        <svg class="mangal-logo-flowers" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 20 80 Q 50 40, 80 20" fill="none" stroke="currentColor" stroke-width="2" />
+                            <g transform="translate(80, 20) scale(0.25)" fill="currentColor">
+                                <path
+                                    d="M0,0 C-15,-25 -40,-15 -25,10 C-50,0 -50,25 -25,25 C-40,50 -15,40 0,15 C15,40 40,50 25,25 C50,25 50,0 25,10 C40,-15 15,-25 0,0 Z" />
+                                <circle cx="0" cy="15" r="8" fill="#fff" />
+                            </g>
+                            <g transform="translate(55, 45) scale(0.2)" fill="currentColor">
+                                <path
+                                    d="M0,0 C-15,-25 -40,-15 -25,10 C-50,0 -50,25 -25,25 C-40,50 -15,40 0,15 C15,40 40,50 25,25 C50,25 50,0 25,10 C40,-15 15,-25 0,0 Z" />
+                                <circle cx="0" cy="15" r="8" fill="#fff" />
+                            </g>
+                            <g transform="translate(25, 75) scale(0.15)" fill="currentColor">
+                                <path
+                                    d="M0,0 C-15,-25 -40,-15 -25,10 C-50,0 -50,25 -25,25 C-40,50 -15,40 0,15 C15,40 40,50 25,25 C50,25 50,0 25,10 C40,-15 15,-25 0,0 Z" />
+                                <circle cx="0" cy="15" r="8" fill="#fff" />
+                            </g>
+                        </svg>
+                        <div class="mangal-logo-text">
+                            <span class="mangal">मंगल</span>
+                            <span class="parinay">परिणय</span>
+                        </div>
+                        <svg class="mangal-logo-swoosh" viewBox="0 0 200 50" preserveAspectRatio="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 10 20 Q 100 50, 190 10" fill="none" stroke="currentColor" stroke-width="4"
+                                stroke-linecap="round" />
+                            <path d="M 175 5 Q 185 10, 190 10 Q 185 15, 175 20" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" />
+                        </svg>
+                    </div>
                     <div class="couple-names script" style="font-size: 3.5rem;">स्नेहा<br><span
                             style="font-size: 2rem; opacity: 0.8;">संग</span><br>वैभव</div>
                 </div>
